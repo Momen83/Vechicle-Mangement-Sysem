@@ -58,9 +58,24 @@ public class CountryController {
 	}
 	@PostMapping("/save/country")
 	public String saveEmployee(@ModelAttribute("country") Country theCountry){
-		// save the Employee
 		countryService.save(theCountry);
 		// use redirect to prevent duplicate submission
+		return "redirect:/countries";
+	}
+	@GetMapping("/country/showFormForUpdate")
+	public String showFormForAdd(@RequestParam("countryId") int theId, Model theModel){
+
+		Optional<Country> theCountry = countryService.findById(theId);
+		// set employee in the model to prepopulate the form
+		theModel.addAttribute("country",theCountry);
+		// send over our form
+		return "country-form";
+	}
+	@GetMapping("/country/delete")
+	public String deleteCountry(@RequestParam("countryId") int theId, Model theModel){
+
+		countryService.delete(theId);
+		// send over our form
 		return "redirect:/countries";
 	}
 }
