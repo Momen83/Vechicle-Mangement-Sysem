@@ -388,11 +388,11 @@
           <i class="bi bi-gem"></i><span>Global</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="" class="dropdown-menu" data-bs-parent="#sidebar-nav">
-          <li><a th:href="@{/countries}"><i ></i><span>Countries</span></a></li>
+          <li><a class="dropdown-item" th:href="@{/countries}"><i ></i><span>Countries</span></a></li>
 
-          <li><a th:href="@{/states}"><i></i><span>States</span></a></li>
+          <li><a class="dropdown-item" th:href="@{/states}"><i></i><span>States</span></a></li>
 
-          <li><a th:href="@{/locations}"><i></i><span>Locations</span></a></li>
+          <li><a class="dropdown-item" th:href="@{/locations}"><i></i><span>Locations</span></a></li>
 
         </ul>
 
@@ -415,31 +415,42 @@
       </nav>
     </div><!-- End Page Title -->
     <h1>List of States</h1>
-    <section class="section">
-      <div class="row">
-        <div class="col-lg-6">
 
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Example Card</h5>
-              <p>This is an examle page with no contrnt. You can use it as a starter for your custom pages.</p>
-            </div>
-          </div>
+    <!-Add a button->
+    <a th:href="@{states/showAddForm}" class="btn btn-primary btn-sm mb-3">Add State</a>
 
-        </div>
+    <table class="table datatable" >
+      <thead>
+      <tr>
+        <th scope="col">id</th>
+        <th scope="col">Name</th>
+        <th scope="col">Details</th>
+        <th scope="col">Capitals</th>
+        <th scope="col">Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each = "state:${states}">
 
-        <div class="col-lg-6">
+        <td th:text = "${state.id}"></td>
+        <td th:text = "${state.name}"></td>
+        <td th:text = "${state.details}"></td>
+        <td th:text = "${state.capital}"></td>
 
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Example Card</h5>
-              <p>This is an examle page with no contrnt. You can use it as a starter for your custom pages.</p>
-            </div>
-          </div>
+        <td>
+          <a th:href="@{/state/showFormForUpdate(stateId = ${state.id})}" class="btn btn-primary"><i class="bi bi-pen"></i>
+          </a>
 
-        </div>
-      </div>
-    </section>
+          <a th:href="@{/state/showFormForUpdate(stateId = ${state.id})}" class="btn btn-success"><i class="bi bi-info-circle"></i>
+          </a>
+
+          <a th:href="@{/state/delete(stateId = ${state.id})}" class="btn btn-danger"
+             onclick="if(!(confirm('Are you sure you want to delete this country'))) return false">
+            <i class="bi bi-trash"></i></a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
 
   </main><!-- End #main -->
 

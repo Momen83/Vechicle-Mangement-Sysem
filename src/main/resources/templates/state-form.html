@@ -31,26 +31,39 @@
 </head>
 <body>
 <div class="container">
-    <h3>Employee Directory</h3>
+    <h3>State Directory</h3>
     <hr>
-    <p class="h4 mb-4">Save Country</p>
-    <form action="#" th:action="@{/save/country}"
-          th:object="${MyCountry}" method="POST">
+    <p class="h4 mb-4">Save State</p>
+    <form action="#" th:action="@{/save/state}"
+          th:object="${state}" method="POST">
         <!--- Add hidden form to handle the update -->
         <input type="hidden" th:field="*{id}">
-        <label class="col-form-label">Description:</label>
-        <input type="text" th:field="*{description}"
-               class="form-control mb-4 w-25" placeholder="Description">
+        <label class="col-form-label">Name:</label>
+        <input type="text" th:field="*{name}"
+               class="form-control mb-4 w-25" placeholder="name">
+        <label class="col-form-label">Country:</label>
+        <select class="form-control">
+                <option>Select</option>
+                <option th:each="countryObj :${country}" th:value="${countryObj.id}" th:text="${countryObj.description}">
+                </option>
+        </select>
+        <br>
+
+        <label class="col-form-label">Capital:</label>
+        <input type="text" th:field="*{capital}"
+               class="form-control mb-4 w-25" placeholder="Captial"
+        >
+
         <label class="col-form-label">Code:</label>
         <input type="text" th:field="*{code}"
                class="form-control mb-4 w-25" placeholder="code">
-        <label class="col-form-label">Capital:</label>
-        <input type="text" th:field="*{capital}"
-               class="form-control mb-4 w-25" placeholder="capital">
+        <label class="col-form-label">Details:</label>
+        <input type="text" th:field="*{details}"
+               class="form-control mb-4 w-25" placeholder="details">
         <button type="submit" class="btn btn-info col-2">Save</button>
     </form>
     <hr>
-    <a th:href="@{/countries}">Back to country List</a>
+    <a th:href="@{/states}">Back to state List</a>
 
 </div>
 
