@@ -7,12 +7,7 @@ import com.kidsonthegenius.fleetapp.services.CountryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-
+import org.springframework.web.bind.annotation.*;
 
 
 @Controller
@@ -50,6 +45,22 @@ public class CountryController {
 	@RequestMapping(value="countries/delete", method = {RequestMethod.DELETE, RequestMethod.GET})	
 	public String delete(Integer id) {
 		countryService.delete(id);
+		return "redirect:/countries";
+	}
+
+	@RequestMapping(value = "countries/showAddForm")
+	public String showFormForAdd(Model theModel){
+		// create model attribute to bind form data
+		Country theCountry  = new Country();
+		theModel.addAttribute("country",theCountry);
+
+		return "country-form";
+	}
+	@PostMapping("/save/country")
+	public String saveEmployee(@ModelAttribute("country") Country theCountry){
+		// save the Employee
+		countryService.save(theCountry);
+		// use redirect to prevent duplicate submission
 		return "redirect:/countries";
 	}
 }
